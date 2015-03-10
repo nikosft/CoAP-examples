@@ -54,4 +54,20 @@ public class BasicClient {
         }
         new CoapClient(endpoint).get(handler);
     }
+    
+    /**
+     * It performs a CoAP POST method. This is a non-blocking call. The response
+     * of this call are handled by the handler.
+     * @param handler The handler of the call
+     * @param The payload of the post
+     * @param The format of the post. For possible values see https://tools.ietf.org/html/rfc7252#section-12.3
+     * @throws Exception If a resource has not been specified it throws an exception
+     */
+    public void post(CoapHandler handler, String payload, int format) throws Exception{
+        if (endpoint == null){
+             throw new Exception("Endpoint has not been set");
+        }
+        new CoapClient(endpoint).post(handler,payload,format);
+        
+    }
 }
