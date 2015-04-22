@@ -14,39 +14,41 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package helloworld;
+package helloWorldPost;
 
-import core.BasicClient;
-import core.BasicServer;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapServer;
+import org.eclipse.californium.core.network.CoAPEndpoint;
 
 /**
- * A basic Hello World example. The server and the client are located in the 
+ * A basic Hello World POST example. The server and the client are located in the 
  * same machine. This class contains the main method that creates the server and the
  * client
- * @author fotiou
+ * @author Nikos Fotiou
  */
-public class HelloWorldTest {
+public class HelloWorldPOST {
     public static void main(String[] args){
         //prepapre server
-        //set the port in which it listens
-        BasicServer server = new BasicServer(2000); 
+        CoapServer server = new CoapServer(); 
         //create a new resource
         HelloWorldResource resource = new HelloWorldResource();
         //add the resource to the server
-        server.addResourse(resource);
-        
+        server.add(resource);        
         //prepare client
-        BasicClient client = new BasicClient("localhost:2000/helloWorld");
+        CoapClient client = new CoapClient("localhost:2000/helloWorld");
         //Creates a new handler
-        HelloWorldHandler handler = new HelloWorldHandler();
+        helloworldGET.HelloWorldHandler handler = new helloworldGET.HelloWorldHandler();
         try{
             //The real action takes place here
             //start the server
-            server.listen();
+            CoAPEndpoint endpoint = new CoAPEndpoint (2000);
+            server.addEndpoint(endpoint);
+            server.start();
             //start the client
-            client.get(handler);
+            client.post(handler,"Hello World!", 0);
             //Just a trick to wait until the user press enter
             System.out.println("Press enter to close the server and end the program");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

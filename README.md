@@ -14,3 +14,10 @@ Hello World POST
 ----------------
 It creates a resource that can be accessed using the POST method. The resource
 echoes back the posted message.
+
+DTLS
+----
+It creates a resource that can be accessed using the GET method over DTLS. The resource
+returns a simple message. In order to execute this example, first run the
+KeyGen.sh script. This script generates a self-signed certificate that is
+used by the server. In this example subscribers are not authenticated. 
